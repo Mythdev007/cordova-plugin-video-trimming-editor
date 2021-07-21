@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-video-trimming-editor" version="0.0.1">
+  <name>Cordova Video Trimming Editor Plugin</name>
+
+  <js-module src="www/VideoTrimmingEditor.js">
+    <clobbers target="VideoTrimmingEditor" />
+  </js-module>
+
+  <engines>
+    <engine name="cordova" version=">=7.1.0"/>
+    <engine name="cordova-android" version=">=8.0.0"/>
+    <engine name="cordova-ios" version=">=4.5.0"/>
+  </engines>
+
+  <!-- iOS -->
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="VideoTrimmingEditor">
+        <param name="ios-package" value="VideoTrimmingEditor" />
+      </feature>
+    </config-file>
+
+    <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
+    <dependency id="cordova-plugin-carthage-support" />
+
+    <source-file src="src/ios/VideoTrimmingEditor.swift" />
+    <source-file src="src/ios/VideoTrimmingEditorViewController.swift" />
+    <resource-file src="src/ios/ic_video_play_black.png" />
+    <resource-file src="src/ios/ic_video_pause_black.png" />
+
+    <carthage>
+      <cartfile>github "HHK1/PryntTrimmerView"</cartfile>
+      <framework src="PryntTrimmerView.framework"/>
+    </carthage>
+  </platform>
+
+  <!-- Android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="VideoTrimmingEditor">
+        <param name="android-package" value="plugin.videotrimmingeditor.VideoTrimmingEditor"/>
+      </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity android:name="plugin.videotrimmingeditor.VideoTrimmingEditorActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
+      <activity android:name="plugin.videotrimmingeditor.features.trim.VideoTrimmerActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
+    </config-file>
+
+    <source-file src="src/android/src/utils/VideoUtils.java" target-dir="src/plugin/videotrimmingeditor/utils" />
+    <source-file src="src/android/src/VideoTrimmingEditor.java" target-dir="src/plugin/videotrimmingeditor" />
+    <source-file src="src/android/src/VideoTrimmingEditorActivity.java" target-dir="src/plugin/videotrimmingeditor" />
+
+    <source-file src="src/android/src/features/common/ui/BaseActivity.java" target-dir="src/plugin/videotrimmingeditor/features/common/ui" />
+    <source-file src="src/android/src/features/compress/VideoCompressor.java" target-dir="src/plugin/videotrimmingeditor/features/compress" />
+    <source-file src="src/android/src/features/trim/VideoTrimmerActivity.java" target-dir="src/plugin/videotrimmingeditor/features/trim" />
+    <source-file src="src/android/src/features/trim/VideoTrimmerAdapter.java" target-dir="src/plugin/videotrimmingeditor/features/trim" />
+    <source-file src="src/android/src/features/trim/VideoTrimmerUtil.java" target-dir="src/plugin/videotrimmingeditor/features/trim" />
+    <source-file src="src/android/src/interfaces/IVideoTrimmerView.java" target-dir="src/plugin/videotrimmingeditor/interfaces" />
+    <source-file src="src/android/src/interfaces/VideoCompressListener.java" target-dir="src/plugin/videotrimmingeditor/interfaces" />
+    <source-file src="src/android/src/interfaces/VideoTrimListener.java" target-dir="src/plugin/videotrimmingeditor/interfaces" />
+    <source-file src="src/android/src/widget/RangeSeekBarView.java" target-dir="src/plugin/videotrimmingeditor/widget" />
+    <source-file src="src/android/src/widget/SpacesItemDecoration2.java" target-dir="src/plugin/videotrimmingeditor/widget" />
+    <source-file src="src/android/src/widget/VideoTrimmerView.java" target-dir="src/plugin/videotrimmingeditor/widget" />
+    <source-file src="src/android/src/widget/ZVideoView.java" target-dir="src/plugin/videotrimmingeditor/widget" />
+    <source-file src="src/android/src/utils/StorageUtil.java" target-dir="src/plugin/videotrimmingeditor/utils" />
+    <source-file src="src/android/src/utils/ToastUtil.java" target-dir="src/plugin/videotrimmingeditor/utils" />
+    <source-file src="src/android/src/utils/UIThreadUtil.java" target-dir="src/plugin/videotrimmingeditor/utils" />
+    <source-file src="src/android/res/layout/activity_main.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/activity_video_trim.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/video_thumb_item_layout.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/layout/video_trimmer_view.xml" target-dir="res/layout"/>
+    <source-file src="src/android/res/drawable/ic_video_pause_black.png" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/ic_video_play_black.png" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/ic_video_thumb_handle.png" target-dir="res/drawable"/>
+    <source-file src="src/android/res/drawable/icon_seek_bar.png" target-dir="res/drawable"/>
+    <source-file src="src/android/res/values/attrs.xml" target-dir="res/values"/>
+    <source-file src="src/android/res/values/colors.xml" target-dir="res/values"/>
+    <source-file src="src/android/res/values/dimens.xml" target-dir="res/values"/>
+    <source-file src="src/android/res/values/ids.xml" target-dir="res/values"/>
+    <source-file src="src/android/res/values/styles.xml" target-dir="res/values"/>
+
+    <config-file target="res/values/strings.xml" parent="/resources">
+      <string name="trimmed_done">video trim completed！</string>
+      <string name="trimming">trimming video...</string>
+      <string name="compressing">compressing video...</string>
+      <string name="compressed_done">video compression completed！</string>
+      <string name="video_shoot_tip">Drag to select the segment within %d second that you want to post！</string>
+      <string name="open_permission">Open permission</string>
+      <string name="video_record_des">To record a video, you need to give the camera and microphone access.</string>
+      <string name="recording">RECORD</string>
+      <string name="back">Back</string>
+      <string name="finish">Finish</string>
+    </config-file>
+
+    <hook type="after_prepare" src="src/scripts/set_application_id.js"/>
+    <hook type="after_compile" src="src/scripts/set_application_id.js"/>
+    <hook type="after_plugin_install" src="src/scripts/set_application_id.js"/>
+
+    <dependency id="cordova-plugin-androidx" version="1.0.2"/>
+    <framework src="src/android/src/video_trimming_editor.gradle" custom="true" type="gradleReference" />
+  </platform>
+
+</plugin>
