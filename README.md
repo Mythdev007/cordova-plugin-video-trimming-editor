@@ -29,7 +29,7 @@ cordova plugin add cordova-plugin-video-trimming-editor
 
 ## Example
 
-使用例  
+
 ```js
 
 VideoTrimmingEditor.open(
